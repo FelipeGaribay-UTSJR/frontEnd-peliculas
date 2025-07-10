@@ -10,6 +10,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'editar-pelicula/:id',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => []
+  },
+  {
     path: '',
     renderMode: RenderMode.Prerender
   },
