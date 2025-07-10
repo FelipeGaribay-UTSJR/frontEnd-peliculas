@@ -10,7 +10,7 @@ export class PeliculaService {
 
   //atributos
   //baseUri: string = 'http://localhost:5000/api';
-  baseUri: string = 'https://backend-peliculas-zoa9.onrender.com/api/';
+  baseUri: string = 'https://backend-peliculas-zoa9.onrender.com/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http:HttpClient) { }
