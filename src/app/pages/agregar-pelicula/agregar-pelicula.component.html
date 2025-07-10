@@ -3,6 +3,14 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card p-4 bg-dark text-light border-warning">
+        
+        <!-- Mensaje de error -->
+        @if (errorMessage) {
+          <div class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        }
+
         <form [formGroup]="peliculaForm" (ngSubmit)="onSubmit()">
           <!-- Título -->
           <div class="mb-3">
@@ -80,7 +88,14 @@
 
           <!-- Botón -->
           <div class="text-center mt-4">
-            <button type="submit" class="btn btn-warning px-5">Agregar Película</button>
+            <button type="submit" class="btn btn-warning px-5" [disabled]="enviando">
+              @if (enviando) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Enviando...
+              } @else {
+                Agregar Película
+              }
+            </button>
           </div>
         </form>
       </div>

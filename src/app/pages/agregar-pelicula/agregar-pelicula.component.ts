@@ -13,6 +13,8 @@ export class AgregarPeliculaComponent implements OnInit {
 
   peliculaForm: FormGroup = new FormGroup({});
   enviada: boolean = false;
+  enviando: boolean = false;
+  errorMessage: string = '';
 
   generos: string[] = [
     'Acción',
@@ -66,19 +68,27 @@ export class AgregarPeliculaComponent implements OnInit {
   // Enviar formulario
   onSubmit() {
     this.enviada = true;
+    this.errorMessage = '';
 
     if (this.peliculaForm.invalid) {
+      console.log('Formulario inválido:', this.peliculaForm.errors);
       return;
     }
 
+    this.enviando = true;
+    console.log('Enviando formulario con datos:', this.peliculaForm.value);
+
     this.peliculaService.agregarPelicula(this.peliculaForm.value)
       .subscribe({
-        complete: () => {
-          console.log('Película agregada correctamente');
+        next: (response) => {
+          console.log('Película agregada correctamente:', response);
+          this.enviando = false;
           this.ngZone.run(() => this.router.navigateByUrl('/listar-peliculas'));
         },
-        error: (e) => {
-          console.error(e);
+        error: (error) => {
+          console.error('Error al agregar película:', error);
+          this.enviando = false;
+          this.errorMessage = error || 'Error al agregar la película. Intente nuevamente.';
         }
       });
   }

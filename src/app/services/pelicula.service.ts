@@ -18,8 +18,16 @@ export class PeliculaService {
   //metodo para agregar una pelicula
   agregarPelicula(data: any):Observable<any> {
     let url = `${this.baseUri}/agregar`;
-    return this.http.post(url, data)
-    .pipe(catchError(this.errorManager));
+    console.log('Enviando datos a:', url);
+    console.log('Datos:', data);
+    return this.http.post(url, data, {headers: this.headers})
+    .pipe(
+      map((res: any) => {
+        console.log('Respuesta del servidor:', res);
+        return res;
+      }),
+      catchError(this.errorManager)
+    );
   }
 
   //metodo para obtener todas las peliculas
@@ -61,9 +69,10 @@ export class PeliculaService {
       errorMessage = error.error.message;
     } else {
       //obtenemos el error del lado del servidor
-      errorMessage = `Error: ${error.status} /n Mensaje: $error{message}`;
+      errorMessage = `Error: ${error.status} /n Mensaje: ${error.message}`;
     }
-    console.log(errorMessage);
+    console.error('Error en la petición HTTP:', errorMessage);
+    console.error('Error completo:', error);
     return throwError(() => {
       return errorMessage;
     })
