@@ -1,0 +1,41 @@
+<div class="container my-5">
+  <h2 class="text-center text-warning mb-4">🎬 Cartelera de Películas</h2>
+
+  @if (listaPeliculas.length <= 0) {
+    <p class="text-center text-light">No hay películas registradas.</p>
+  } @else {
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (pelicula of listaPeliculas; track pelicula._id; let i = $index) {
+        <div class="col">
+          <div class="card bg-dark text-light h-100 border border-warning">
+            <!-- Simulación de imagen o póster -->
+            <div class="card-header text-center bg-black">
+              <i class="fas fa-film fa-3x text-warning"></i>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title text-warning text-center">{{ pelicula.titulo }}</h5>
+              <p class="card-text">
+                <strong>🎬 Director:</strong> {{ pelicula.director }} <br>
+                <strong>🎭 Género:</strong> {{ pelicula.genero }} <br>
+                <strong>📆 Año:</strong> {{ pelicula.anio }} <br>
+                <strong>🎫 Clasificación:</strong> {{ pelicula.clasificacion }} <br>
+                <strong>⏱️ Duración:</strong> {{ pelicula.duracion }} min <br>
+                <strong>🗣️ Idioma:</strong> {{ pelicula.idioma }}
+              </p>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between">
+              <a [routerLink]="['/editar-pelicula', pelicula._id]" class="btn btn-warning btn-sm">
+                ✏️ Editar
+              </a>
+              <button class="btn btn-danger btn-sm" (click)="eliminarPelicula(pelicula, i)">
+                🗑️ Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

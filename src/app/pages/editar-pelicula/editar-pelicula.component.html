@@ -1,0 +1,89 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4 text-warning">✏️ Editar Película</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card p-4 bg-dark text-light border-warning">
+        <form [formGroup]="editarPeliculaForm" (ngSubmit)="onSubmit()">
+          <!-- Título -->
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" formControlName="titulo" />
+            @if (enviada && myForm['titulo'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+          </div>
+
+          <!-- Director -->
+          <div class="mb-3">
+            <label class="form-label">Director</label>
+            <input type="text" class="form-control" formControlName="director" />
+            @if (enviada && myForm['director'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+          </div>
+
+          <!-- Género -->
+          <div class="mb-3">
+            <label class="form-label">Género</label>
+            <select class="form-select" formControlName="genero" (change)="actualizarGenero($event)">
+              <option value="">Seleccione un género</option>
+              @for (genero of generos; track genero) {
+                <option [value]="genero">{{ genero }}</option>
+              }
+            </select>
+            @if (enviada && myForm['genero'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+          </div>
+
+          <!-- Año -->
+          <div class="mb-3">
+            <label class="form-label">Año</label>
+            <input type="text" class="form-control" formControlName="anio" />
+            @if (enviada && myForm['anio'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+            @if (enviada && myForm['anio'].errors?.['pattern']) {
+              <div class="text-danger">Ingrese un año válido</div>
+            }
+          </div>
+
+          <!-- Clasificación -->
+          <div class="mb-3">
+            <label class="form-label">Clasificación</label>
+            <input type="text" class="form-control" formControlName="clasificacion" />
+            @if (enviada && myForm['clasificacion'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+          </div>
+
+          <!-- Duración -->
+          <div class="mb-3">
+            <label class="form-label">Duración (minutos)</label>
+            <input type="text" class="form-control" formControlName="duracion" />
+            @if (enviada && myForm['duracion'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+            @if (enviada && myForm['duracion'].errors?.['pattern']) {
+              <div class="text-danger">Solo números</div>
+            }
+          </div>
+
+          <!-- Idioma -->
+          <div class="mb-3">
+            <label class="form-label">Idioma</label>
+            <input type="text" class="form-control" formControlName="idioma" />
+            @if (enviada && myForm['idioma'].errors?.['required']) {
+              <div class="text-danger">Este campo es obligatorio</div>
+            }
+          </div>
+
+          <!-- Botón -->
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-warning px-5">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
